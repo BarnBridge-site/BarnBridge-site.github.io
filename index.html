@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BarnBridge — DeFi Risk Tokenisation, BOND Token, Smart Yield &amp; Smart Exposure Guide (2026)</title>
+  <meta name="description" content="Complete BarnBridge guide (2026): how BarnBridge tokenises DeFi risk into tranches, Smart Yield bond mechanics, Smart Exposure explained, BOND token utility and staking, DAO governance, regulatory context, risks, and a deep FAQ for DeFi investors.">
+  <meta name="author" content="Crypto Finance Experts">
+  <link rel="canonical" href="https://barnbridge-guide.example.com/">
+  <link rel="icon" type="image/png" href="bar.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://barnbridge-guide.example.com/">
+  <meta property="og:title" content="BarnBridge — DeFi Risk Tokenisation, BOND Token &amp; Smart Yield Guide (2026)">
+  <meta property="og:description" content="Practical BarnBridge guide: risk tranching, Smart Yield bonds, Smart Exposure, BOND token, DAO governance, regulatory developments, and DeFi risk management.">
+  <meta property="og:image" content="cover.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BarnBridge — DeFi Risk Tokenisation Guide (2026)">
+  <meta name="twitter:description" content="How BarnBridge tokenises and tranches DeFi risk, Smart Yield mechanics, BOND token, and regulatory context for 2026.">
+
+  <style>
+    :root {
+      --r:    #FF4A1C;
+      --r2:   #E03E16;
+      --r3:   #C03311;
+      --ra:   #FF7A52;
+      --rb:   #FFB8A0;
+      --rc:   #FFE8E0;
+
+      --ink:   #FFF5F2;
+      --sub:   #FFB8A0;
+      --muted: #94A3B8;
+      --dim:   #64748B;
+
+      --bg:    #0A0503;
+      --card:  rgba(255,255,255,.028);
+      --line:  rgba(255,255,255,.07);
+      --lr:    rgba(255,74,28,.14);
+
+      --ok:   #34D399;
+      --warn: #FBBF24;
+      --err:  #F87171;
+
+      --rv:  12px;
+      --rl: 18px;
+      --gap: 1.2rem;
+      --sh: 0 8px 28px rgba(0,0,0,.60);
+      --shr: 0 4px 24px rgba(255,74,28,.13);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    html { scroll-behavior: smooth }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 900px 520px at 0%   0%,  rgba(224,62,22,.11), transparent 55%),
+        radial-gradient(ellipse 700px 400px at 100% 8%,  rgba(255,74,28,.06), transparent 50%),
+        radial-gradient(ellipse 600px 360px at 50%  98%, rgba(192,51,17,.07), transparent 55%);
+      color: var(--muted);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: var(--ra); text-decoration: none }
+    a:hover { text-decoration: underline }
+    img { max-width: 100%; height: auto; display: block }
+    strong { color: #FFD4C2; font-weight: 600 }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.4rem }
+
+    h1,h2,h3,h4 { color: var(--ink); line-height: 1.25 }
+    h1 { font-size: clamp(2rem,5vw,3.1rem); font-weight: 800; letter-spacing: -.4px }
+    h2 { font-size: clamp(1.25rem,2.5vw,1.75rem); font-weight: 700; margin-top: 1.8rem; padding-top: .7rem; border-top: 1px solid var(--line) }
+    h3 { font-size: 1.08rem; font-weight: 700; color: var(--sub) }
+    p,li,td,th { font-size: 1rem; line-height: 1.75 }
+    .lead { font-size: 1.08rem; color: #FFCAB5 }
+
+    /* HERO */
+    header.hero {
+      padding: clamp(2.5rem,6vw,5rem) 0 clamp(2rem,4vw,3.5rem);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-card {
+      background: rgba(224,62,22,.05);
+      border: 1px solid var(--lr);
+      border-radius: var(--rl);
+      padding: clamp(1.4rem,3.5vw,2.4rem);
+      box-shadow: var(--sh), var(--shr);
+      position: relative; overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,122,82,.55), transparent);
+    }
+
+    .brand-row { display: flex; align-items: center; gap: .9rem; margin-bottom: 1rem }
+    .brand-logo {
+      width: 54px; height: 54px; border-radius: 13px;
+      border: 1px solid rgba(255,74,28,.28);
+      background: rgba(224,62,22,.10);
+      padding: .3rem; object-fit: contain;
+      box-shadow: 0 4px 14px rgba(255,74,28,.20);
+      flex: 0 0 auto;
+    }
+    .brand-label { color: var(--dim); font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4px }
+    .brand-sub   { color: var(--muted); font-size: .85rem }
+
+    /* CTA */
+    .cta-center { display: flex; justify-content: center; margin-top: 2rem }
+    .cta {
+      display: inline-flex; align-items: center; gap: .7rem;
+      background: linear-gradient(135deg, #FF7A52 0%, #FF4A1C 42%, #E03E16 76%, #C03311 100%);
+      color: #fff;
+      padding: 1.2rem 3rem;
+      border-radius: 16px;
+      font-weight: 900; font-size: 1.15rem; letter-spacing: .15px;
+      box-shadow:
+        0 0 0 1px rgba(255,74,28,.26),
+        0 0 30px rgba(255,74,28,.32),
+        0 8px 22px rgba(224,62,22,.28),
+        0 20px 48px rgba(192,51,17,.22);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: transform .18s, box-shadow .18s, filter .18s;
+    }
+    .cta:hover {
+      transform: translateY(-3px) scale(1.025); filter: brightness(1.07);
+      color: #fff; text-decoration: none;
+      box-shadow:
+        0 0 0 1px rgba(255,74,28,.42),
+        0 0 44px rgba(255,74,28,.46),
+        0 10px 28px rgba(224,62,22,.38),
+        0 26px 58px rgba(192,51,17,.30);
+    }
+
+    /* NOTE */
+    .note {
+      border-left: 3px solid var(--ra);
+      padding: .8rem 1rem;
+      background: rgba(224,62,22,.07);
+      border-radius: 0 9px 9px 0;
+      color: var(--sub); margin-top: 1rem;
+    }
+    .note.warn {
+      border-left-color: var(--warn);
+      background: rgba(251,191,36,.07);
+      color: #FEF3C7;
+    }
+
+    /* STEPS */
+    section.step-guide {
+      padding: clamp(2rem,5vw,3.5rem) 0;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .steps { display: grid; gap: var(--gap); grid-template-columns: 1fr }
+    .step {
+      background: var(--card); border: 1px solid var(--line);
+      border-top: 2px solid rgba(255,74,28,.28); border-radius: var(--rv);
+      padding: 1.25rem; box-shadow: var(--sh); transition: transform .18s, box-shadow .18s;
+    }
+    .step:hover { transform: translateY(-3px); box-shadow: var(--sh), var(--shr) }
+    .step .icon {
+      width: 44px; height: 44px; border-radius: 9px;
+      display: inline-grid; place-items: center;
+      background: rgba(224,62,22,.11); margin-bottom: .65rem;
+      font-weight: 800; font-size: .95rem; color: var(--ra);
+      border: 1px solid rgba(255,74,28,.22);
+    }
+
+    /* CARD */
+    main { padding-top: .5rem }
+    main .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--rv); padding: 1.5rem; margin: 1.2rem 0; box-shadow: var(--sh);
+    }
+    main .card > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* TOC */
+    .toc { border: 1px solid var(--lr); background: rgba(224,62,22,.05); border-radius: var(--rv); padding: 1.1rem 1.3rem }
+    .toc strong { color: var(--ink) }
+    .toc ul { margin: .5rem 0 0; padding-left: 1.1rem }
+    .toc li { margin: .28rem 0; font-size: .96rem }
+    .toc a { font-weight: 600 }
+
+    /* GRID */
+    .callout-grid { display: grid; gap: var(--gap); grid-template-columns: 1fr; margin-top: .8rem }
+    .mini { background: rgba(255,255,255,.02); border: 1px solid var(--line); border-radius: var(--rv); padding: 1rem }
+    .mini h3 { margin-bottom: .35rem }
+    .kpi-badges { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .55rem }
+    .kpi-badges span {
+      border: 1px solid rgba(255,74,28,.22); background: rgba(224,62,22,.09);
+      color: var(--sub); padding: .26rem .54rem;
+      border-radius: 999px; font-size: .87rem; font-weight: 600;
+    }
+
+    /* TRANCHE VISUAL */
+    .tranche-stack { display: flex; flex-direction: column; gap: .55rem; margin-top: 1rem }
+    .tranche {
+      border-radius: var(--rv);
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--line);
+    }
+    .tranche.senior {
+      background: rgba(52,211,153,.07);
+      border-color: rgba(52,211,153,.18);
+    }
+    .tranche.junior {
+      background: rgba(255,74,28,.07);
+      border-color: rgba(255,74,28,.18);
+    }
+    .tranche-label {
+      font-weight: 800; font-size: .85rem; text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: .3rem;
+    }
+    .tranche.senior .tranche-label { color: #34D399 }
+    .tranche.junior .tranche-label { color: var(--ra) }
+
+    /* TOKO BARS */
+    .toko-bar { display: flex; flex-direction: column; gap: .6rem; margin-top: 1rem }
+    .toko-row { display: flex; align-items: center; gap: .85rem }
+    .toko-label { min-width: 200px; font-size: .92rem; color: #FFD4C2; font-weight: 600 }
+    .toko-track { flex: 1; height: 8px; background: rgba(255,255,255,.07); border-radius: 999px; overflow: hidden }
+    .toko-fill  { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--ra), var(--r)) }
+    .toko-val   { min-width: 60px; text-align: right; font-size: .9rem; font-weight: 700; color: var(--ra) }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; border-radius: var(--rv); border: 1px solid var(--line) }
+    table { width: 100%; border-collapse: collapse; min-width: 480px }
+    th,td { padding: .8rem .95rem; border-bottom: 1px solid var(--line); text-align: left }
+    th { background: rgba(224,62,22,.07); color: var(--ink); font-weight: 700; font-size: .93rem }
+    tr.hi { background: rgba(224,62,22,.04) }
+    tr:hover td { background: rgba(255,255,255,.018) }
+    tr:last-child td { border-bottom: none }
+    .ok { color: var(--ok) } .warn { color: var(--warn) } .err { color: var(--err) }
+
+    /* EEAT */
+    .eeat { background: var(--card); border: 1px solid var(--lr); border-radius: var(--rv); padding: 1.5rem; box-shadow: var(--sh) }
+    .eeat > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--line); padding: .9rem 0 }
+    .faq-item:last-child { border-bottom: none }
+    .faq-button { all: unset; display: flex; justify-content: space-between; align-items: flex-start; width: 100%; cursor: pointer; gap: 1rem }
+    .faq-button:focus-visible { outline: 2px solid var(--r); border-radius: 4px }
+    .faq-button h3 { margin: 0; font-weight: 700; font-size: 1rem; line-height: 1.4 }
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height .26s ease }
+    .faq-content.open { padding-top: .65rem }
+    .faq-plus { font-weight: 800; font-size: 1.35rem; color: var(--ra); flex: 0 0 auto; line-height: 1; transition: transform .2s }
+    .faq-button[aria-expanded="true"] .faq-plus { transform: rotate(45deg) }
+
+    @media(min-width:860px){
+      .steps { grid-template-columns: repeat(4,1fr) }
+      .callout-grid { grid-template-columns: 1fr 1fr }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="container">
+    <div class="hero-card">
+      <div class="brand-row">
+        <img class="brand-logo" src="bar.png" alt="BarnBridge logo">
+        <div>
+          <div class="brand-label">Complete Protocol Guide</div>
+          <div class="brand-sub">Risk Tranching · Smart Yield · Smart Exposure · BOND Token · DAO · SEC Context</div>
+        </div>
+      </div>
+
+      <h1>BarnBridge</h1>
+      <p class="lead" style="margin-top:.7rem">
+        The complete guide to <strong>BarnBridge</strong> — the DeFi protocol that
+        pioneered <strong>risk tokenisation</strong>, splitting variable-rate DeFi yield
+        into structured <strong>fixed-rate (senior) and leveraged-variable (junior) tranches</strong>
+        through its <strong>Smart Yield</strong> product.
+        Understand how BarnBridge's <strong>tranching mechanism</strong> works,
+        what <strong>Smart Exposure</strong> enables for DeFi portfolio management,
+        how the <strong>BOND token</strong> governs the protocol,
+        the significance of <strong>BarnBridge's SEC settlement</strong> as a landmark
+        DeFi regulatory event, and what the protocol's current state means
+        for holders and DeFi participants.
+      </p>
+
+      <div class="cta-center">
+        <a href="#" class="cta" aria-label="Open BarnBridge App">
+          <span>⬡</span> Open BarnBridge
+        </a>
+      </div>
+
+      <div class="note">
+        <strong>BarnBridge's regulatory significance:</strong> In September 2023, BarnBridge
+        became one of the first DeFi protocols to reach a formal settlement with the U.S.
+        Securities and Exchange Commission (SEC) — a landmark event with implications
+        for how structured DeFi products are classified and regulated.
+        This guide covers both the protocol mechanics and the regulatory context.
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STEPS -->
+<section class="step-guide" aria-labelledby="how-works">
+  <div class="container">
+    <h2 id="how-works" style="margin-top:0;border-top:none;padding-top:0">
+      How BarnBridge Works: Pool → Tranche → Fixed vs Variable → Settle
+    </h2>
+    <div class="steps" role="list">
+      <article class="step" role="listitem">
+        <div class="icon">01</div>
+        <h3>Capital pooled from all depositors</h3>
+        <p>Users deposit stablecoins or other assets into a BarnBridge Smart Yield pool. All deposited capital is collectively deployed to yield-generating DeFi protocols (Compound, Aave, Yearn) to earn variable-rate interest.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">02</div>
+        <h3>Pool split into senior and junior tranches</h3>
+        <p>The variable yield is then split into two tranches: senior bondholders receive a fixed, guaranteed rate first. Junior token holders receive whatever remains — which amplifies their returns when yield is high but absorbs shortfalls when yield falls below the senior rate.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">03</div>
+        <h3>Senior bonds: fixed rate, priority claim</h3>
+        <p>Senior participants lock capital for a defined term and receive a fixed APY regardless of what the underlying DeFi protocol earns. Their principal is protected by the junior tranche — juniors are first to absorb losses if yield is insufficient.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">04</div>
+        <h3>Junior tokens: amplified variable exposure</h3>
+        <p>Junior participants receive variable returns — the total yield minus the fixed senior rate. When DeFi yields are high, juniors earn disproportionately more. When yields are low, juniors subsidise seniors and may earn less than the base rate or lose value.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container" role="main">
+
+  <!-- TOC -->
+  <section class="card toc" aria-label="Table of Contents">
+    <strong>On this page — BarnBridge:</strong>
+    <ul>
+      <li><a href="#overview">What is BarnBridge and the DeFi risk tokenisation thesis</a></li>
+      <li><a href="#tranching">Risk tranching explained: senior vs junior in detail</a></li>
+      <li><a href="#smart-yield">Smart Yield: fixed-rate bonds on DeFi yield</a></li>
+      <li><a href="#smart-exposure">Smart Exposure: rebalancing DeFi portfolio risk</a></li>
+      <li><a href="#bond-token">BOND token: utility, governance, and staking</a></li>
+      <li><a href="#dao">BarnBridge DAO: on-chain governance and treasury</a></li>
+      <li><a href="#sec">SEC settlement: what happened and what it means for DeFi</a></li>
+      <li><a href="#safety">BarnBridge risks: smart-contract, tranche, and regulatory risks</a></li>
+      <li><a href="#comparison">BarnBridge vs Pendle vs Ribbon vs Element: structured DeFi comparison</a></li>
+      <li><a href="#best-practices">Best practices for BarnBridge participants</a></li>
+      <li><a href="#troubleshooting">Troubleshooting: bond maturity, redemption, DAO voting</a></li>
+      <li><a href="#eeat">Authoritative sources &amp; references</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="card" id="overview">
+    <h2>What Is BarnBridge and the DeFi Risk Tokenisation Thesis</h2>
+    <p>
+      <strong>BarnBridge</strong> is a DeFi protocol that introduced
+      <strong>risk tokenisation</strong> to the Ethereum ecosystem — the idea that
+      DeFi yield and price risk can be mathematically split into separate instruments,
+      each serving different investor risk appetites, without requiring a centralised intermediary.
+    </p>
+    <p>
+      The core thesis: traditional finance has long used structured products
+      (CDOs, CMOs, interest rate swaps) to redistribute risk between parties with
+      different risk tolerances. DeFi had no equivalent.
+      BarnBridge brought this concept on-chain — letting conservative investors
+      access fixed DeFi rates while risk-seeking investors gain leveraged exposure
+      to variable DeFi yields, all within a single protocol and without counterparty risk.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>For conservative DeFi participants</h3>
+        <p style="color:var(--muted)">Smart Yield senior bonds offer predictable fixed returns on stablecoin deposits — a genuine alternative to variable Aave or Compound rates for participants who prioritise yield certainty over maximisation. The fixed rate is guaranteed by junior tranche capital absorbing yield shortfalls.</p>
+        <div class="kpi-badges"><span>Fixed rate</span><span>Principal-protected</span><span>Term-defined</span></div>
+      </div>
+      <div class="mini">
+        <h3>For risk-seeking DeFi participants</h3>
+        <p style="color:var(--muted)">Smart Yield junior tokens offer leveraged variable exposure to DeFi yield — earning amplified returns when protocol yields are high. Juniors provide capital efficiency for senior bondholders in exchange for higher expected yield and first-loss risk.</p>
+        <div class="kpi-badges"><span>Leveraged yield</span><span>First-loss position</span><span>Variable returns</span></div>
+      </div>
+      <div class="mini">
+        <h3>For portfolio managers</h3>
+        <p style="color:var(--muted)">Smart Exposure provides automated, on-chain rebalancing of DeFi exposure — automatically shifting allocations between risk-on and risk-off positions as market conditions evolve, without manual position management.</p>
+        <div class="kpi-badges"><span>Auto-rebalancing</span><span>Risk management</span><span>Passive strategy</span></div>
+      </div>
+      <div class="mini">
+        <h3>For BOND token holders</h3>
+        <p style="color:var(--muted)">BOND holders govern the protocol through BarnBridge DAO — directing product development, fee parameters, treasury allocation, and strategic decisions. The token represents ownership and governance rights in a protocol that pioneered a new DeFi category.</p>
+        <div class="kpi-badges"><span>DAO governance</span><span>Protocol direction</span><span>Treasury control</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANCHING -->
+  <section class="card" id="tranching">
+    <h2>Risk Tranching Explained: Senior vs Junior Tranche in Detail</h2>
+    <p>
+      Tranching is the financial engineering concept at the heart of BarnBridge —
+      splitting a single variable yield stream into two instruments with different
+      risk and return profiles. Understanding the mechanics is essential
+      for anyone considering participation in either tranche.
+    </p>
+
+    <!-- Visual tranche stack -->
+    <div class="tranche-stack" role="list" aria-label="Tranche structure">
+      <div class="tranche senior" role="listitem">
+        <div class="tranche-label">✓ Senior Tranche — Fixed Rate (sBOND)</div>
+        <p style="font-size:.96rem">Receives fixed APY regardless of underlying yield fluctuations. First claim on pool yield. Principal is protected by junior tranche absorption of shortfalls. Suitable for conservative, yield-certainty-seeking participants. Capital is locked for the defined bond term.</p>
+        <div class="kpi-badges" style="margin-top:.6rem">
+          <span>Fixed guaranteed yield</span><span>Priority claim</span><span>Term-locked</span><span>Lower risk</span>
+        </div>
+      </div>
+      <div class="tranche junior" role="listitem">
+        <div class="tranche-label">⚡ Junior Tranche — Variable Leveraged (jTokens)</div>
+        <p style="font-size:.96rem">Receives all remaining yield after the fixed senior rate is paid. When DeFi yields are high, juniors earn amplified returns. When yields are low or fall below the senior rate, juniors subsidise seniors and may lose value. No term lock — junior tokens trade freely.</p>
+        <div class="kpi-badges" style="margin-top:.6rem">
+          <span>Amplified variable yield</span><span>First-loss position</span><span>Liquid (tradeable)</span><span>Higher risk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1.2rem">
+      <table aria-label="Senior vs Junior comparison">
+        <thead>
+          <tr><th>Dimension</th><th>Senior (sBOND)</th><th>Junior (jToken)</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Return type</td>
+            <td class="ok">Fixed APY — known at purchase</td>
+            <td class="warn">Variable — depends on underlying yield vs senior rate</td>
+          </tr>
+          <tr>
+            <td>Risk position</td>
+            <td class="ok">Last to absorb losses</td>
+            <td class="err">First to absorb losses</td>
+          </tr>
+          <tr class="hi">
+            <td>Liquidity</td>
+            <td class="warn">Illiquid until maturity (NFT bond)</td>
+            <td class="ok">Liquid — jTokens tradeable any time</td>
+          </tr>
+          <tr>
+            <td>Yield amplification</td>
+            <td class="err">No — receives only stated fixed rate</td>
+            <td class="ok">Yes — earns surplus yield above senior rate</td>
+          </tr>
+          <tr class="hi">
+            <td>Best when DeFi yields are…</td>
+            <td>Any level — fixed regardless</td>
+            <td class="ok">High — junior earns more when surplus yield is large</td>
+          </tr>
+          <tr>
+            <td>Worst when DeFi yields are…</td>
+            <td>N/A (protected by junior)</td>
+            <td class="err">Low — junior subsidises seniors and earns little or nothing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>The equilibrium mechanism:</strong> The senior APY is set at bond purchase based
+      on market conditions. If the underlying DeFi protocol's variable rate stays above
+      the senior fixed rate throughout the term, juniors earn positive excess yield.
+      If the variable rate collapses below the senior rate, juniors' redemption value
+      falls below their entry price — they absorb the shortfall so seniors are made whole.
+      This is the fundamental risk junior participants take on.
+    </div>
+  </section>
+
+  <!-- SMART YIELD -->
+  <section class="card" id="smart-yield">
+    <h2>Smart Yield: Fixed-Rate DeFi Bonds on Variable Protocol Yield</h2>
+    <p>
+      <strong>Smart Yield</strong> is BarnBridge's flagship product —
+      a system of structured bonds that pools deposits, deploys them to
+      yield-generating DeFi protocols, and distributes the resulting yield
+      across senior and junior tranches.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>Underlying yield sources</h3>
+        <p style="color:var(--muted)">Smart Yield pools deploy capital to established DeFi lending protocols — Compound, Aave, and Yearn — to earn yield. This yield is variable by nature; BarnBridge's tranching system converts a portion of it into a predictable fixed rate for senior participants.</p>
+        <div class="kpi-badges"><span>Compound</span><span>Aave</span><span>Yearn</span></div>
+      </div>
+      <div class="mini">
+        <h3>Bond term mechanics</h3>
+        <p style="color:var(--muted)">Senior bonds are issued for fixed terms (e.g. 30, 90, 180 days). At maturity, senior bondholders redeem their principal plus accrued fixed interest. Before maturity, bonds are represented as NFTs — uniquely identifying each holder's position, term, and fixed rate. These bond NFTs may trade on secondary markets at a premium or discount.</p>
+        <div class="kpi-badges"><span>NFT bonds</span><span>Fixed terms</span><span>Secondary tradeable</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Why fixed rate DeFi was innovative:</strong> Before BarnBridge, every DeFi
+      yield product was variable — you could never know your return in advance.
+      Smart Yield introduced predictability to DeFi income for the first time,
+      enabling use cases like DeFi treasury management, pension-like strategies,
+      and institutional participation where income certainty is a requirement.
+    </div>
+  </section>
+
+  <!-- SMART EXPOSURE -->
+  <section class="card" id="smart-exposure">
+    <h2>Smart Exposure: Automated DeFi Portfolio Risk Rebalancing</h2>
+    <p>
+      <strong>Smart Exposure</strong> is BarnBridge's second major product —
+      an automated portfolio rebalancing tool that maintains a target allocation
+      between a risk-on asset (e.g. ETH) and a risk-off asset (e.g. USDC)
+      as market prices change, without requiring manual intervention.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>How Smart Exposure works</h3>
+        <p style="color:var(--muted)">Users set a target allocation (e.g. 60% ETH / 40% USDC). As ETH price moves, the protocol automatically rebalances — selling ETH when it rises above target weight and buying when it falls below. Rebalancing is triggered by price movement thresholds, executed on-chain without user interaction.</p>
+        <div class="kpi-badges"><span>Target allocation</span><span>Auto-rebalance</span><span>Threshold-triggered</span></div>
+      </div>
+      <div class="mini">
+        <h3>Use cases for Smart Exposure</h3>
+        <p style="color:var(--muted)">Passive DeFi investors who want systematic risk management without active position monitoring — similar to a traditional balanced fund but on-chain. DAO treasuries managing risk across volatile and stable assets. Individual DeFi participants who want disciplined rebalancing without paying management fees to a fund.</p>
+        <div class="kpi-badges"><span>Passive management</span><span>DAO treasuries</span><span>Systematic rebalancing</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOND TOKEN -->
+  <section class="card" id="bond-token">
+    <h2>BOND Token: Utility, Governance, Staking, and Tokenomics</h2>
+    <p>
+      <strong>BOND</strong> is BarnBridge's native governance token with a fixed supply
+      of 10,000,000 tokens — a capped issuance model that creates token scarcity
+      relative to protocol usage growth.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="BOND token utility">
+        <thead>
+          <tr><th>Function</th><th>How BOND is used</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>DAO governance</td>
+            <td>BOND holders propose and vote on protocol changes — fee settings, product parameters, treasury allocation, and strategic direction via BarnBridge DAO</td>
+          </tr>
+          <tr>
+            <td>Staking for yield</td>
+            <td>BOND staked in the governance pool earns a portion of protocol fee revenue — aligning long-term holders with platform growth</td>
+          </tr>
+          <tr class="hi">
+            <td>Liquidity mining</td>
+            <td>BOND was distributed to early protocol users and liquidity providers as bootstrap incentives for the Smart Yield pools</td>
+          </tr>
+          <tr>
+            <td>Protocol fee accrual</td>
+            <td>BarnBridge charges fees on Smart Yield products; BOND stakers earn a share of these fees as real yield from protocol revenue</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- BOND tokenomics bars -->
+    <div class="toko-bar" role="list" aria-label="BOND token distribution">
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">DAO / community treasury</span>
+        <div class="toko-track"><div class="toko-fill" style="width:42%"></div></div>
+        <span class="toko-val">42%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Yield farming incentives</span>
+        <div class="toko-track"><div class="toko-fill" style="width:22%"></div></div>
+        <span class="toko-val">22%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Founding team</span>
+        <div class="toko-track"><div class="toko-fill" style="width:22%"></div></div>
+        <span class="toko-val">22%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Seed investors</span>
+        <div class="toko-track"><div class="toko-fill" style="width:10%"></div></div>
+        <span class="toko-val">10%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Advisors</span>
+        <div class="toko-track"><div class="toko-fill" style="width:4%"></div></div>
+        <span class="toko-val">4%</span>
+      </div>
+    </div>
+    <p style="font-size:.88rem; color:var(--dim); margin-top:.6rem">Total supply: 10,000,000 BOND (fixed). Verify exact distribution via official BarnBridge documentation.</p>
+  </section>
+
+  <!-- DAO -->
+  <section class="card" id="dao">
+    <h2>BarnBridge DAO: On-Chain Governance and Treasury Management</h2>
+    <p>
+      <strong>BarnBridge DAO</strong> is the decentralised autonomous organisation
+      through which BOND holders govern the protocol. All significant protocol decisions —
+      from product parameters to treasury expenditure — are proposed, debated, and voted on
+      through the DAO's governance system.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>What DAO governance controls</h3>
+        <p style="color:var(--muted)">Senior bond rate parameters, protocol fees, treasury grants and expenditures, new product deployments, smart contract upgrades, and strategic partnerships. DAO proposals go through a community discussion period before on-chain voting — any BOND holder can propose.</p>
+        <div class="kpi-badges"><span>Rate parameters</span><span>Fees</span><span>Treasury</span><span>Upgrades</span></div>
+      </div>
+      <div class="mini">
+        <h3>DAO voting mechanics</h3>
+        <p style="color:var(--muted)">Voting power is proportional to staked BOND. A proposal passes with a quorum and majority threshold — requiring meaningful participation, not just a handful of large holders. The DAO has on-chain execution — passed proposals automatically implement changes without requiring manual action from the team.</p>
+        <div class="kpi-badges"><span>Stake-weighted</span><span>Quorum required</span><span>On-chain execution</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>DAO significance post-SEC settlement:</strong> Following the 2023 SEC settlement,
+      BarnBridge's DAO became central to the protocol's future operation —
+      governance decisions on product scope, user access restrictions,
+      and compliance measures have all been directed through the DAO,
+      making BOND holders directly responsible for the protocol's regulatory posture.
+    </div>
+  </section>
+
+  <!-- SEC -->
+  <section class="card" id="sec">
+    <h2>SEC Settlement: What Happened and What It Means for DeFi</h2>
+    <p>
+      In <strong>September 2023</strong>, BarnBridge DAO and its founders reached a
+      settlement with the U.S. Securities and Exchange Commission (SEC) —
+      one of the most significant regulatory actions involving a DeFi protocol to date.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="SEC settlement overview">
+        <thead>
+          <tr><th>Element</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>SEC's allegation</td>
+            <td>BarnBridge's Smart Yield product offered unregistered securities — specifically that structured yield pools with tranching constituted investment contracts subject to SEC registration requirements</td>
+          </tr>
+          <tr>
+            <td>Settlement terms</td>
+            <td>BarnBridge DAO and founders agreed to pay combined penalties, cease offering the products to U.S. persons, and implement compliance measures — without admitting or denying the SEC's findings</td>
+          </tr>
+          <tr class="hi">
+            <td>Protocol response</td>
+            <td>BarnBridge DAO voted to implement geo-restrictions for U.S. users on the frontend interface and adjusted product parameters to align with the settlement's requirements</td>
+          </tr>
+          <tr>
+            <td>Broader significance</td>
+            <td>Established a precedent: structured DeFi yield products with tranching can be classified as securities under the Howey test. DAOs themselves can be held legally accountable as entities</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note warn">
+      <strong>Regulatory precedent for all DeFi:</strong> The BarnBridge SEC settlement
+      is a landmark data point for DeFi regulation globally. It confirmed that
+      structured on-chain yield products are not exempt from securities laws simply
+      because they run on a blockchain, and that DAO governance structures do not
+      insulate founders or participants from regulatory liability.
+      This context is important for all DeFi participants to understand —
+      not just BarnBridge users.
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="card" id="safety">
+    <h2>BarnBridge Risks: Smart-Contract, Tranche, and Regulatory Risks</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Risk analysis">
+        <thead>
+          <tr><th>Risk</th><th>Level</th><th>Description &amp; Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Junior tranche yield collapse</td>
+            <td class="err">High (for juniors)</td>
+            <td>If underlying DeFi protocol yield falls below the senior fixed rate, junior participants may receive less than their principal. Assess underlying yield stability before entering the junior tranche</td>
+          </tr>
+          <tr>
+            <td>Underlying protocol exploit</td>
+            <td class="warn">Medium</td>
+            <td>Smart Yield pools deploy to Compound, Aave, Yearn — a hack on these underlying protocols directly affects BarnBridge pool value. Diversification of underlying pools mitigates but does not eliminate this risk</td>
+          </tr>
+          <tr class="hi">
+            <td>BarnBridge smart-contract exploit</td>
+            <td class="warn">Medium</td>
+            <td>BarnBridge's own contracts are a separate attack surface on top of underlying protocols. Multiple audits completed; bug bounty active</td>
+          </tr>
+          <tr>
+            <td>Regulatory risk (ongoing)</td>
+            <td class="warn">Medium</td>
+            <td>The SEC settlement established precedent — additional regulatory actions or policy changes in other jurisdictions remain a protocol-level risk. Monitor DAO governance for compliance updates</td>
+          </tr>
+          <tr class="hi">
+            <td>BOND liquidity risk</td>
+            <td class="warn">Medium</td>
+            <td>BOND is a governance token for a specialised DeFi product — its secondary market liquidity may be thin in adverse conditions. Assess exit liquidity before building large BOND positions</td>
+          </tr>
+          <tr>
+            <td>Senior bond illiquidity</td>
+            <td class="warn">Low-Medium</td>
+            <td>sBOND NFTs may trade at discount on secondary markets before maturity — if you need capital before bond term ends, selling may be at a loss. Only lock capital you can commit for the full term</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="card" id="comparison">
+    <h2>BarnBridge vs Pendle vs Ribbon vs Element: Structured DeFi Yield Comparison</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Structured DeFi comparison">
+        <thead>
+          <tr><th>Feature</th><th>BarnBridge</th><th>Pendle Finance</th><th>Ribbon Finance</th><th>Element Finance</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Core mechanism</td>
+            <td>Risk tranching (senior/junior)</td>
+            <td>Yield tokenisation (PT + YT split)</td>
+            <td>Options vaults (structured products)</td>
+            <td>Fixed-rate via principal/yield split</td>
+          </tr>
+          <tr>
+            <td>Fixed rate available</td>
+            <td class="ok">Yes — senior bonds</td>
+            <td class="ok">Yes — principal tokens (PT)</td>
+            <td class="err">No — options-based</td>
+            <td class="ok">Yes — principal tokens</td>
+          </tr>
+          <tr class="hi">
+            <td>Leveraged yield</td>
+            <td class="ok">Yes — junior tokens</td>
+            <td class="ok">Yes — yield tokens (YT)</td>
+            <td class="warn">Implied via options</td>
+            <td class="warn">Limited</td>
+          </tr>
+          <tr>
+            <td>NFT bond representation</td>
+            <td class="ok">Yes — sBOND NFTs</td>
+            <td class="err">ERC-20 tokens</td>
+            <td class="err">ERC-20 tokens</td>
+            <td class="err">ERC-20 tokens</td>
+          </tr>
+          <tr class="hi">
+            <td>SEC regulatory action</td>
+            <td class="warn">Yes — settled 2023</td>
+            <td class="ok">No action to date</td>
+            <td class="ok">No action to date</td>
+            <td class="ok">Discontinued — no action</td>
+          </tr>
+          <tr>
+            <td>Portfolio rebalancing tool</td>
+            <td class="ok">Yes — Smart Exposure</td>
+            <td class="err">No</td>
+            <td class="err">No</td>
+            <td class="err">No</td>
+          </tr>
+          <tr class="hi">
+            <td>Current status (2026)</td>
+            <td class="warn">Post-settlement — DAO-governed</td>
+            <td class="ok">Active — growing ecosystem</td>
+            <td class="warn">Evolved to Aevo exchange</td>
+            <td class="err">Discontinued</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      <strong>Pendle as the structured yield winner:</strong> Since BarnBridge's SEC settlement,
+      Pendle Finance has emerged as the dominant structured DeFi yield protocol —
+      growing significantly through Ethereum liquid staking yield tokenisation
+      (PT/YT split of stETH, rETH yield) without facing equivalent regulatory action.
+      Pendle's approach of splitting yield tokens rather than tranching pools
+      appears to carry a different regulatory profile in practice.
+    </div>
+  </section>
+
+  <!-- BEST PRACTICES -->
+  <section class="card" id="best-practices">
+    <h2>Best Practices for BarnBridge Participants</h2>
+
+    <h3>For senior bond (sBOND) buyers</h3>
+    <ul style="padding-left:1.2rem; margin-bottom:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Only lock capital for the full bond term</strong> — sBOND NFTs may trade at a discount on secondary markets before maturity. If you can't commit capital for the full duration, the senior bond structure is not appropriate for your liquidity needs.</li>
+      <li style="margin-bottom:.5rem"><strong>Evaluate the underlying protocol risk</strong> — your fixed rate depends on the underlying DeFi protocol (Compound/Aave/Yearn) not being exploited. Senior bond protection is tranche-level, not exploit-level.</li>
+      <li><strong>Verify the bond term and fixed rate before committing</strong> — different pools offer different rates and terms. Compare available senior bonds against your duration requirement and alternative yield options.</li>
+    </ul>
+
+    <h3>For junior token (jToken) holders</h3>
+    <ul style="padding-left:1.2rem; margin-bottom:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Model the downside scenario carefully</strong> — calculate your P&amp;L if the underlying DeFi protocol yield falls to 50% of the current rate, and if it falls to the senior fixed rate. These are realistic scenarios, not edge cases.</li>
+      <li style="margin-bottom:.5rem"><strong>Monitor underlying protocol yield actively</strong> — junior tranche value is directly linked to whether actual yields exceed the senior fixed rate. Set alerts for major yield changes on the underlying protocol.</li>
+      <li><strong>Understand that jToken redemption value can fall</strong> — unlike senior bonds, jTokens do not have principal protection. In a sustained low-yield environment, jToken holders absorb the full impact of yield shortfalls.</li>
+    </ul>
+
+    <h3>For BOND holders and governance participants</h3>
+    <ul style="padding-left:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Participate in DAO governance actively</strong> — post-SEC settlement, governance decisions carry heightened significance for the protocol's direction and regulatory posture. Your BOND vote matters.</li>
+      <li><strong>Monitor regulatory developments</strong> — the SEC settlement created an ongoing compliance framework. DAO proposals related to compliance, geo-restrictions, and product scope deserve careful attention from all BOND holders.</li>
+    </ul>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="card" id="troubleshooting">
+    <h2>Troubleshooting BarnBridge: Bond Maturity, Redemption, and DAO Voting</h2>
+
+    <h3>"My senior bond has matured but I haven't redeemed it yet"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>Matured sBOND NFTs remain valid for redemption after maturity — there is typically no immediate expiry post-maturity, but check the official BarnBridge interface for any redemption window. Redeem via the official app by connecting the wallet holding the sBOND NFT.</li>
+      <li>Ensure you're connecting the exact wallet that holds the sBOND NFT — bonds are NFTs assigned to specific wallet addresses, not to accounts.</li>
+    </ul>
+
+    <h3>"The BarnBridge frontend isn't accessible in my region"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>As part of the SEC settlement, BarnBridge implemented geo-restrictions for U.S.-based users on the frontend. This is a frontend restriction — the underlying smart contracts remain on-chain and accessible directly via contract interaction for technically capable users.</li>
+      <li>Check the official BarnBridge DAO governance forum for the current status of access restrictions and any governance proposals to modify them.</li>
+    </ul>
+
+    <h3>"My DAO vote doesn't seem to have registered"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>Confirm the vote transaction succeeded on Etherscan — DAO votes are on-chain transactions requiring gas. A failed transaction means your vote was not registered.</li>
+      <li>Verify your BOND is staked in the governance contract, not just held in your wallet — unstaked BOND does not carry voting power in most BarnBridge governance implementations.</li>
+    </ul>
+
+    <div class="note">
+      <strong>Official DAO governance forum is the authoritative source:</strong>
+      For current protocol status, product availability, and compliance developments,
+      the BarnBridge DAO governance forum is more reliable than third-party summaries.
+      The protocol's situation has evolved significantly since the SEC settlement —
+      check current governance for the latest state.
+    </div>
+  </section>
+
+  <!-- EEAT -->
+  <section class="eeat" id="eeat" aria-labelledby="eeat-title">
+    <h2 id="eeat-title">BarnBridge: Authoritative References &amp; External Sources</h2>
+
+    <h3>BarnBridge — Official Sources</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://barnbridge.com/" target="_blank" rel="noopener nofollow">BarnBridge — Official Website</a></li>
+      <li><a href="https://docs.barnbridge.com/" target="_blank" rel="noopener nofollow">BarnBridge — Official Documentation</a></li>
+      <li><a href="https://github.com/BarnBridge" target="_blank" rel="noopener nofollow">BarnBridge — Smart Contracts (GitHub)</a></li>
+      <li><a href="https://forum.barnbridge.com/" target="_blank" rel="noopener nofollow">BarnBridge DAO — Governance Forum</a></li>
+    </ul>
+
+    <h3>SEC Settlement</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://www.sec.gov/enforcement/actions" target="_blank" rel="noopener nofollow">SEC — Enforcement Actions (Official)</a></li>
+    </ul>
+
+    <h3>Structured DeFi Research</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://defillama.com/protocol/barnbridge" target="_blank" rel="noopener nofollow">DeFiLlama — BarnBridge TVL &amp; Protocol Data</a></li>
+      <li><a href="https://ethereum.org/en/defi/" target="_blank" rel="noopener nofollow">Ethereum.org — DeFi Overview</a></li>
+      <li><a href="https://pendle.finance/" target="_blank" rel="noopener nofollow">Pendle Finance — Comparable Structured Yield Protocol</a></li>
+    </ul>
+
+    <h3>Security</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://revoke.cash/" target="_blank" rel="noopener nofollow">Revoke.cash — Token Approval Manager</a></li>
+      <li><a href="https://blog.openzeppelin.com/security-audits" target="_blank" rel="noopener nofollow">OpenZeppelin — Smart Contract Security Audits</a></li>
+    </ul>
+
+    <div class="note" style="margin-top:1.2rem">
+      <strong>About:</strong> Prepared by Crypto Finance Experts as a practical, SEO-oriented knowledge base for
+      <em>BarnBridge</em>: risk tranching, Smart Yield mechanics, Smart Exposure, BOND token, DAO governance, SEC settlement context, and security.
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" style="margin-top:0;border-top:none;padding-top:0">BarnBridge: Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f1" id="b1">
+        <h3>What is BarnBridge and what does it do?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f1" class="faq-content" role="region" aria-labelledby="b1">
+        <p>BarnBridge is a DeFi risk tokenisation protocol that splits variable-rate DeFi yield into structured fixed-rate (senior) and leveraged-variable (junior) tranches through its Smart Yield product. Conservative participants buy senior bonds for predictable fixed returns; risk-seeking participants hold junior tokens for amplified variable exposure. BarnBridge also offers Smart Exposure for automated DeFi portfolio rebalancing. It was the first DeFi protocol to bring traditional structured finance concepts (tranching) fully on-chain.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f2" id="b2">
+        <h3>What is the difference between senior bonds and junior tokens?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f2" class="faq-content" role="region" aria-labelledby="b2">
+        <p>Senior bonds (sBOND) receive a guaranteed fixed APY set at purchase — they're protected by the junior tranche absorbing any yield shortfall. Juniors must wait until seniors are paid before receiving returns. Junior tokens (jTokens) receive all yield remaining after seniors are paid — when DeFi yields are high, juniors earn amplified returns; when yields fall below the senior rate, juniors absorb the shortfall and may lose principal value. Senior bonds are term-locked NFTs; junior tokens are liquid and tradeable.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f3" id="b3">
+        <h3>What happened with BarnBridge and the SEC?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f3" class="faq-content" role="region" aria-labelledby="b3">
+        <p>In September 2023, BarnBridge DAO and its founders reached a settlement with the U.S. SEC, which alleged that BarnBridge's Smart Yield structured pools constituted unregistered securities offerings. The settlement included financial penalties and required BarnBridge to implement geo-restrictions for U.S. users and cease offering certain products to U.S. persons. The settlement was landmark for DeFi — it established that structured on-chain yield products can be classified as securities and that DAOs are not legally insulated entities beyond regulatory reach.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f4" id="b4">
+        <h3>What is the BOND token and what is it used for?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f4" class="faq-content" role="region" aria-labelledby="b4">
+        <p>BOND is BarnBridge's governance token with a fixed supply of 10 million. BOND holders govern the protocol through BarnBridge DAO — voting on product parameters, fees, treasury allocation, and strategic direction. Staked BOND earns a share of protocol fee revenue from Smart Yield products. BOND was distributed through yield farming incentives to bootstrap Smart Yield pool liquidity, and via the team/investor allocation with vesting schedules.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f5" id="b5">
+        <h3>Can I lose money in BarnBridge's junior tranche?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f5" class="faq-content" role="region" aria-labelledby="b5">
+        <p>Yes — junior token holders can lose principal value. If the underlying DeFi protocol's variable yield falls below the fixed rate owed to senior bondholders, the difference is absorbed by the junior tranche — reducing junior token redemption value below the entry price. This is the fundamental risk of the first-loss position. In a sustained low-yield environment, junior holders may receive significantly less than their initial deposit. Only participate in the junior tranche with capital you can tolerate losing in adverse yield scenarios.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f6" id="b6">
+        <h3>What is Smart Exposure and how is it different from Smart Yield?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f6" class="faq-content" role="region" aria-labelledby="b6">
+        <p>Smart Yield splits DeFi yield into fixed and variable tranches. Smart Exposure is a separate product — an automated portfolio rebalancer that maintains a target allocation between a volatile asset (e.g. ETH) and a stable asset (e.g. USDC) as prices move, without user intervention. Think of Smart Yield as a fixed income product and Smart Exposure as a passive balanced fund — two different solutions to different DeFi risk management challenges from the same protocol.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f7" id="b7">
+        <h3>How does BarnBridge compare to Pendle Finance?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f7" class="faq-content" role="region" aria-labelledby="b7">
+        <p>Both tokenise DeFi yield into fixed and variable components, but with different mechanisms. BarnBridge uses tranching — splitting a pool's yield between senior and junior participants, where juniors absorb risk on behalf of seniors. Pendle splits yield tokens into principal tokens (PT, like a zero-coupon bond) and yield tokens (YT, representing future yield rights), which are then independently tradeable. Pendle has grown significantly since BarnBridge's SEC settlement and is currently the dominant structured yield protocol in DeFi, particularly for liquid staking token (LST) yield tokenisation.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f8" id="b8">
+        <h3>Are senior bonds truly fixed rate and risk-free?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f8" class="faq-content" role="region" aria-labelledby="b8">
+        <p>Senior bonds provide a fixed yield rate that is guaranteed by the tranche structure — meaning your return is protected from DeFi yield variability as long as the junior tranche can absorb shortfalls. However, they are not risk-free. If the underlying DeFi protocol (Compound, Aave) is hacked or becomes insolvent, the entire pool value — including the senior tranche — could be affected. Additionally, BarnBridge's own smart contracts carry exploit risk. "Fixed rate" refers specifically to yield certainty within the tranche model, not absolute capital safety.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f9" id="b9">
+        <h3>Is BarnBridge still active and should I use it in 2026?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f9" class="faq-content" role="region" aria-labelledby="b9">
+        <p>BarnBridge's protocol remains deployed on-chain and governed by the DAO. The SEC settlement resulted in significant changes to product accessibility (geo-restrictions for U.S. users) and strategic direction. The protocol continues to operate but has seen competition from Pendle Finance grow substantially in the structured yield space. For current product availability, active pools, and DAO governance status, check the official BarnBridge app and governance forum rather than relying on this or any third-party summary, as the protocol's state continues to evolve through DAO decisions.</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="container" role="contentinfo" style="padding:2.5rem 0; border-top:1px solid var(--line); margin-top:2rem">
+  <p style="color:var(--dim); font-size:.93rem">© 2026 BarnBridge Guide. Educational content with a security-first and regulatory-context focus. Not financial or legal advice.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-button').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const c = document.getElementById(b.getAttribute('aria-controls'));
+        c.classList.remove('open'); c.style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        const content = document.getElementById(btn.getAttribute('aria-controls'));
+        content.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
